@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BARBER CLUB — męskie strzyżenie, pielęgnacja brody i profesjonalna obsługa.">
+  <title>BARBER CLUB — Gorzów Wielkopolski</title>
+  <style>
+    :root {
+      --bg: #0b0b0b;
+      --panel: #151515;
+      --panel-light: #1d1d1d;
+      --text: #f4f1eb;
+      --muted: #aaa49a;
+      --gold: #c6a36a;
+      --line: rgba(255,255,255,.12);
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .eyebrow {
+      color: var(--gold); text-transform: uppercase; letter-spacing: .22em;
+      font-size: .72rem; font-weight: 700;
+    }
+    .section { padding: 100px 0; }
+    .section-heading { max-width: 650px; margin-bottom: 42px; }
+    .section-heading h2 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(2.2rem, 5vw, 3.7rem); line-height: 1.08;
+      font-weight: 400; margin: 12px 0 14px;
+    }
+    .section-heading p { color: var(--muted); }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 50px; padding: 0 25px; background: var(--gold);
+      color: #111; text-transform: uppercase; letter-spacing: .1em;
+      font-size: .75rem; font-weight: 800; border: 1px solid var(--gold);
+      transition: .2s ease;
+    }
+    .button:hover { background: transparent; color: var(--gold); }
+    .button-outline { background: transparent; color: var(--text); border-color: var(--line); }
+    .button-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Nawigacja */
+    .topbar { border-bottom: 1px solid var(--line); background: rgba(10,10,10,.94); }
+    .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+    .logo { font-family: Georgia, 'Times New Roman', serif; font-size: 1.55rem; letter-spacing: .12em; white-space: nowrap; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: #d4d0c8; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; }
+    .nav-links a:hover { color: var(--gold); }
+    .menu-toggle, .menu-icon { display: none; }
+
+    /* Sekcja główna */
+    .hero {
+      min-height: 680px; display: flex; align-items: center;
+      background: linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.72) 48%, rgba(0,0,0,.18) 100%),
+      url('https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(0deg, var(--bg), transparent 24%, transparent 78%, var(--bg));
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; padding: 90px 0; }
+    .hero h1 {
+      font-family: Georgia, 'Times New Roman', serif; font-weight: 400;
+      font-size: clamp(3.4rem, 8vw, 6.8rem); line-height: .98;
+      letter-spacing: -.04em; margin: 20px 0 24px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p { max-width: 500px; color: #d0cbc2; font-size: 1.05rem; margin-bottom: 32px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; }
+    .hero-note { margin-top: 55px; color: #c3bdb3; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
+
+    /* O nas */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 65px; align-items: center; }
+    .about-image { min-height: 470px; background: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=85') center/cover; }
+    .about-copy h2 { font-family: Georgia, serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400; line-height: 1.1; margin: 13px 0 22px; }
+    .about-copy p { color: var(--muted); margin-bottom: 17px; }
+    .about-copy .button { margin-top: 12px; }
+
+    /* Usługi */
+    .services { background: #101010; }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .service-card { background: var(--panel); padding: 30px; border: 1px solid var(--line); min-height: 220px; }
+    .service-number { color: var(--gold); font-family: Georgia, serif; font-size: 1.2rem; }
+    .service-card h3 { font-family: Georgia, serif; font-size: 1.5rem; font-weight: 400; margin: 22px 0 8px; }
+    .service-card p { color: var(--muted); font-size: .92rem; min-height: 48px; }
+    .service-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); margin-top: 22px; padding-top: 16px; }
+    .price { color: var(--gold); font-size: 1.2rem; font-weight: 700; }
+    .duration { color: var(--muted); font-size: .78rem; }
+
+    /* Galeria */
+    .gallery-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 220px 220px; gap: 12px; }
+    .gallery-item { background-size: cover; background-position: center; filter: saturate(.75); }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1000&q=85'); }
+    .gallery-item:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=85'); }
+    .gallery-item:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=900&q=85'); }
+    .gallery-item:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1512690459411-b9245aed614b?auto=format&fit=crop&w=900&q=85'); }
+    .gallery-item:nth-child(5) { background-image: url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=85') ; }
+
+    /* Rezerwacja i stopka */
+    .booking { background: var(--panel); text-align: center; }
+    .booking-inner { max-width: 720px; margin: 0 auto; }
+    .booking h2 { font-family: Georgia, serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 400; line-height: 1.08; margin: 14px 0 18px; }
+    .booking p { color: var(--muted); margin-bottom: 28px; }
+    .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 55px; text-align: left; }
+    .contact-item { border-top: 1px solid var(--line); padding-top: 18px; }
+    .contact-item h3 { color: var(--gold); text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; margin-bottom: 9px; }
+    .contact-item p, .contact-item a { color: #ddd7ce; font-size: .92rem; }
+    footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: .78rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 800px) {
+      .nav { min-height: 72px; flex-wrap: wrap; }
+      .menu-icon { display: block; color: var(--gold); font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; cursor: pointer; }
+      .nav-links { display: none; width: 100%; flex-direction: column; align-items: flex-start; gap: 18px; padding: 0 0 22px; }
+      .menu-toggle:checked ~ .nav-links { display: flex; }
+      .nav > .button { display: none; }
+      .hero { min-height: 610px; background-position: 60% center; }
+      .about-grid { grid-template-columns: 1fr; gap: 35px; }
+      .about-image { min-height: 340px; }
+      .service-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 160px 160px; }
+      .gallery-item:first-child { grid-row: auto; }
+      .contact-grid { grid-template-columns: 1fr; gap: 22px; }
+      .section { padding: 75px 0; }
+    }
+    @media (max-width: 520px) {
+      .container { width: min(100% - 30px, var(--max)); }
+      .hero { min-height: 570px; }
+      .hero h1 { font-size: clamp(3rem, 16vw, 4.6rem); }
+      .hero p { font-size: .95rem; }
+      .service-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-rows: repeat(5, 190px); grid-template-columns: 1fr; }
+      .gallery-item:first-child { grid-row: auto; }
+      .button { width: 100%; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="logo" href="#start">BARBER<span>CLUB</span></a>
+      <input class="menu-toggle" type="checkbox" id="menu-toggle" aria-label="Otwórz menu">
+      <label class="menu-icon" for="menu-toggle">Menu ☰</label>
+      <nav class="nav-links" aria-label="Nawigacja główna">
+        <a href="#o-nas">O nas</a>
+        <a href="#uslugi">Usługi</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a class="button" href="#kontakt">Umów wizytę</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="start">
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow">Barber shop · Gorzów Wielkopolski</div>
+          <h1>Klasyka.<br><span>Charakter.</span><br>Styl.</h1>
+          <p>Precyzyjne strzyżenie, zadbana broda i atmosfera, do której chce się wracać. Zadbaj o swój wygląd z BARBER CLUB.</p>
+          <div class="hero-actions">
+            <a class="button" href="#kontakt">Zarezerwuj termin</a>
+            <a class="button button-outline" href="#uslugi">Poznaj ofertę</a>
+          </div>
+          <div class="hero-note">Dobry styl zaczyna się od dobrego cięcia.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="o-nas">
+      <div class="container about-grid">
+        <div class="about-image" role="img" aria-label="Wnętrze nowoczesnego salonu barberskiego"></div>
+        <div class="about-copy">
+          <div class="eyebrow">Poznaj BARBER CLUB</div>
+          <h2>Więcej niż strzyżenie.</h2>
+          <p>Stawiamy na dokładność, dobre rzemiosło i indywidualne podejście. Niezależnie od tego, czy wybierasz klasyczne cięcie, czy nowoczesny fade — zadbamy o każdy szczegół.</p>
+          <p>Usiądź wygodnie, wybierz swoją usługę i poświęć chwilę sobie. Twój styl jest naszą wizytówką.</p>
+          <a class="button button-outline" href="#uslugi">Zobacz usługi</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services" id="uslugi">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Nasza oferta</div>
+          <h2>Usługi i cennik</h2>
+          <p>Przejrzyste ceny i profesjonalna obsługa. Wybierz usługę dopasowaną do siebie.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-number">01 / STRZYŻENIE</div>
+            <h3>Strzyżenie męskie</h3>
+            <p>Indywidualnie dobrana fryzura i precyzyjne wykończenie.</p>
+            <div class="service-bottom"><span class="price">60 zł</span><span class="duration">45 min</span></div>
+          </article>
+          <article class="service-card">
+            <div class="service-number">02 / KOMPLET</div>
+            <h3>Włosy + broda</h3>
+            <p>Kompleksowa pielęgnacja i spójny, dopracowany wygląd.</p>
+            <div class="service-bottom"><span class="price">90 zł</span><span class="duration">60 min</span></div>
+          </article>
+          <article class="service-card">
+            <div class="service-number">03 / BRODA</div>
+            <h3>Modelowanie brody</h3>
+            <p>Kontur, kształt i schludne wykończenie brody.</p>
+            <div class="service-bottom"><span class="price">40 zł</span><span class="duration">30 min</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Nasze miejsce i styl</div>
+          <h2>Galeria</h2>
+          <p>Sprawdź klimat BARBER CLUB. Zdjęcia w tej wersji są przykładowe — możesz później podmienić je na fotografie salonu.</p>
+        </div>
+        <div class="gallery-grid" aria-label="Galeria salonu">
+          <div class="gallery-item"></div><div class="gallery-item"></div><div class="gallery-item"></div><div class="gallery-item"></div><div class="gallery-item"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section booking" id="kontakt">
+      <div class="container booking-inner">
+        <div class="eyebrow">Czas na zmianę</div>
+        <h2>Gotowy na świeże cięcie?</h2>
+        <p>Skontaktuj się z nami i umów dogodny termin. Dane kontaktowe poniżej są przykładowe — przed publikacją wpisz prawdziwy numer, adres i godziny otwarcia.</p>
+        <a class="button" href="tel:+48500000000">Zadzwoń i umów wizytę</a>
+        <div class="contact-grid">
+          <div class="contact-item"><h3>Adres</h3><p>Gorzów Wielkopolski<br>Wpisz adres salonu</p></div>
+          <div class="contact-item"><h3>Telefon</h3><a href="tel:+48500000000">+48 500 000 000</a></div>
+          <div class="contact-item"><h3>Godziny otwarcia</h3><p>Pon. – Pt.: 09:00–19:00<br>Sob.: 09:00–14:00</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 BARBER CLUB. Wszelkie prawa zastrzeżone.</span>
+      <span>Projekt demonstracyjny — dane i ceny do edycji.</span>
+    </div>
+  </footer>
+</body>
+</html>
